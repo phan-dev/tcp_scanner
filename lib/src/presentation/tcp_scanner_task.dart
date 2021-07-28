@@ -58,6 +58,8 @@ class TcpScannerTask {
       scanReport.addOpen(ports: report.openPorts);
       scanReport.addClosed(ports: report.closedPorts);
     });
+    // Terminate isolates after the scan process finished
+    _scanners.forEach((scanner) => scanner.cancel());
     _isRunning = false;
     return _reportToTcpScannerTaskReport(scanReport);
   }
